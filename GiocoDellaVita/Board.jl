@@ -21,7 +21,7 @@ type BoardIO
 	saveToFile
 	BoardIO() = 
 		new(
-		function loadFromFile(path::String)
+		function loadFromFile(path::AbstractString)
 			file = open(path)
 			lines = readlines(file)
 			close(file)
@@ -30,7 +30,7 @@ type BoardIO
 			else
 				dimensions = split(lines[1])
 				if((isa(parse(string(dimensions[1])), Number)) && isa(parse(string(dimensions[2])), Number)) 
-					board = Board(int(dimensions[1]), int(dimensions[2]))
+					board = Board(parse(Int, dimensions[1]), parse(Int, dimensions[2]))
 					if(length(lines) < board.hight+1)
 						throw((error("Błędne dane wejściowe")))
 					else
@@ -40,9 +40,9 @@ type BoardIO
 							else
 								for j=1:(board.width)
 									if(lines[i][j] == '1')
-										board.cells[i-1; j] = Cell(true)
+										board.cells[i-1, j] = Cell(true)
 									elseif(lines[i][j] == '0')
-										board.cells[i-1; j] = Cell(false)
+										board.cells[i-1, j] = Cell(false)
 									else
 										throw((error("Błędne dane wejściowe")))
 									end
@@ -57,7 +57,7 @@ type BoardIO
 			end
 		end,
 
-		function saveToFile(board::Board, path::String)
+		function saveToFile(board::Board, path::AbstractString)
 			file = open(path, "w")
 			write(file, string(board.hight))
 			write(file, " ")
@@ -65,7 +65,7 @@ type BoardIO
 			write(file, "\n")
 			for i=1:board.hight
 				for j=1:board.width
-					if board.cells[i ; j].isAlife
+					if board.cells[i , j].isAlife
 						write(file, "1")
 					else
 						write(file, "0")

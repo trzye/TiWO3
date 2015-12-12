@@ -22,13 +22,13 @@ cells = myBoard.cells
 #wypelnienie planszy martwymi komorkami (bo inaczej jest undefined!)
 for i=1:5
 	for j=1:10
-		cells[i ; j]=Cell(false)
+		cells[i , j]=Cell(false)
 	end
 end
 
 #dostanie sie do konretnej komorki
-cell = cells[1 ; 1] # skracja gorna, lewa
-cell = cells[5 ; 10] # skrajna dolna, prawa
+cell = cells[1 , 1] # skracja gorna, lewa
+cell = cells[5 , 10] # skrajna dolna, prawa
 
 #info o komorce
 isAlife = cell.isAlife #zwraca true albo false
