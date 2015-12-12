@@ -4,7 +4,7 @@ Projekt polegający na przeprowadzeniu testów aplikacji będącej automatem kom
 
 • GitHub: <a href="http://github.com/trzye/TiWO3">TiWO3</a>
 
-• Użyte technologie: <b>Julia 0.2.1</b>
+• Użyte technologie: <b>Julia 0.4.2</b>
 
 • Tematy: Testowanie, weryfikacja, walidacja.
 
