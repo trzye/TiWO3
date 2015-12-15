@@ -11,7 +11,7 @@ end
 type Board
 	hight::Int
 	width::Int
-	cells::Array 
+	cells::Array
 
 	Board(hight::Int, width::Int) = new(setDimension(hight), setDimension(width), Array(Cell, hight, width))
 end
@@ -76,4 +76,17 @@ type BoardIO
 			close(file)
 		end
 		)
+end
+
+printBoard = function printBoard(board::Board)
+	for h=1:board.hight
+		for w=1:board.width
+			if board.cells[h, w].isAlife
+				print("♡")
+			else
+				print(" ")
+			end
+		end
+		print("\n")
+	end
 end

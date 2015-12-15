@@ -6,6 +6,9 @@ bIO = BoardIO()
 #Wczytanie planszy z pliku
 board = bIO.loadFromFile("daneTestowe.txt")
 
+#Wypisanie tablicy do konsoli
+printBoard(board)
+
 #Zapisanie planszy do pliku
 bIO.saveToFile(board, "zapisaneDaneTestowe.txt")
 
