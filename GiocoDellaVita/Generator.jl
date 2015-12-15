@@ -190,16 +190,16 @@ type Generator
 				for ( i = 1 : n)
 					checkingWithBorders( board )
 					if( i == z)
-						bIO.saveToFile(board, "board_nr_$z.txt")	
-						z = z + s
+						bIO.saveToFile(board, "board_borders_nr_$z.txt")	
+						z = z + saving
 					end
 				end
 			else
 				for ( i = 1 : n)
 					checkingInfinity( board )
 					if( i == z)
-						bIO.saveToFile(board, "board_nr_$z.txt")	
-						z = z + s
+						bIO.saveToFile(board, "board_inf_nr_$z.txt")	
+						z = z + saving
 					end
 				end 
 			end 
