@@ -101,10 +101,10 @@ function checkingInfinity(b :: Board)
 	h = b.hight
 	w = b.width
 	tmp = 0
-	for i = 1 :h
-		for j = 1 : w
+	for i = 1 :h-1
+		for j = 1 : w -1
 			if ((i == 1) && (j != 1)&& (j != w) )
-				for( l = j + n : j + p)
+				for( l = j - 1 : j + 1 )
 					if( b.cells[h,l].isAlife == true )
 						tmp = tmp +1
 					end
@@ -115,8 +115,8 @@ function checkingInfinity(b :: Board)
 						tmp = tmp +1
 					end
 				end
-			elseif ((i == h) && (j != 1)&& (j != w) )
-				for( l = j + n : j + p)
+			elseif( (i == h)&&(j != 1)&&(j != w) )
+				for( l = j -1 : j + 1)
 					if( b.cells[1,l].isAlife == true )
 						tmp = tmp +1
 					end
@@ -127,16 +127,38 @@ function checkingInfinity(b :: Board)
 						tmp = tmp +1
 					end
 				end
-			elseif((i == 1) && (j ==1))
+			elseif( (j == 1) && ( i != 1) && (i != w) )
+				for(k = i -1 : i + 1)
+					if( b.cells[k,w].isAlife == true)
+						tmp = tmp + 1
+					end
+					for(l = j : j+1)
+						if( b.cells[k,l].isAlife == true)
+							tmp = tmp +1
+						end
+					end
+				end
+			elseif( (j == w) && ( i != 1) && (i != w))
+				for(k = i -1 : i + 1)
+					if( b.cells[k,1].isAlife == true)
+						tmp = tmp + 1
+					end
+					for(l = j -1 : j)
+						if( b.cells[k,l].isAlife == true)
+							tmp = tmp +1
+						end
+					end
+				end
+			elseif((i == 1) && (j == 1))
 				check2(b, h, w, h, j, h, j+1, i, w, i, j, i, j+1, i+1, w, i+1, j, i+1, j+1)	
-			esleif( (i ==1) && ( j == w))
+			elseif((i == 1) && (j == w))
 				check2(b, h, j-1, h, j, h, 1, i, j-1, i, j, i, 1, i+1, j-1, i+1, j, i+1, 1)
 			elseif((i == h) && (j == 1))
 				check2(b, i-1, w, i-1, j, i-1, j+1, i, w, i, j, i, j+1, 1, w, 1, j, 1, j+1)
-			elseif(( i ==h) && (j == w))
+			elseif((i == h) && (j == w))
 				check2(b, i-1, j-1, i-1, j, i-1, 1, i, j-1, i, j, i, 1, 1, j-1, 1, j, 1, 1)
-			else
-				check( b, i, j, m, n, o , p)
+			elseif((i != 1) && (i != h) &&( j != 1) && (j != w) )
+				check( b, i, j, -1, -1, 1 , 1)
 			end
 		end
 	end
@@ -149,13 +171,15 @@ type Generator
 	Generator() =
 		new(   #funkcja generujaca jeden następny board
 		function generateNextOne( board :: Board, infinity :: Bool) 
+			bIO = BoardIO()
 			if( infinity == false)
 				checkingWithBorders( board )
+				bIO.saveToFile(board, "board_only_one_borders.txt")
+
 			else
 				checkingInfinity( board )
+				bIO.saveToFile(board, "board_only_one_inf.txt")
 			end
-			bIO = BoardIO()
-			bIO.saveToFile(board, "board_only_one.txt")
 		end,
 
 			#funkcja generujaca n następnych boardów zapis co liczbę saving
@@ -166,16 +190,16 @@ type Generator
 				for ( i = 1 : n)
 					checkingWithBorders( board )
 					if( i == z)
-						bIO.saveToFile(board, "board_nr_$z.txt")	
-						z = z + s
+						bIO.saveToFile(board, "board_borders_nr_$z.txt")	
+						z = z + saving
 					end
 				end
 			else
 				for ( i = 1 : n)
 					checkingInfinity( board )
 					if( i == z)
-						bIO.saveToFile(board, "board_nr_$z.txt")	
-						z = z + s
+						bIO.saveToFile(board, "board_inf_nr_$z.txt")	
+						z = z + saving
 					end
 				end 
 			end 
