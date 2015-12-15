@@ -185,7 +185,7 @@ type Generator
 			#funkcja generujaca n następnych boardów zapis co liczbę saving
 		function generateNOnes( board :: Board, infinity :: Bool, n :: Int, saving :: Int) 
 			bIO = BoardIO()
-			z = 0
+			z = 1
 			if( infinity == false)
 				for ( i = 1 : n)
 					checkingWithBorders( board )
