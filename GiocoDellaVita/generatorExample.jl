@@ -13,3 +13,9 @@ gen.generateNextOne(board,false)
 
 #generacja jednego na planszy bez granic
 gen.generateNextOne(board,true)
+
+#generacja wielu 3 iteracje zapisane co 1 z granicami
+gen.generateNOnes(board,false, 3, 1)
+
+#generacja wielu 3 iteracje zapisane co 1 z granicami
+gen.generateNOnes(board,true, 3, 1)
