@@ -15,10 +15,11 @@ next = gen.generateNextOne(board,false)
 printBoard(next)
 
 #generacja jednego na planszy bez granic
-#gen.generateNextOne(board,true)
+n = gen.generateNextOne(board,true)
+printBoard(n)
 
 #generacja wielu 3 iteracje zapisane co 1 z granicami
 nn = gen.generateNOnes(board,false, 3, 1)
 
 #generacja wielu 3 iteracje zapisane co 1 z granicami
-#gen.generateNOnes(board,true, 3, 1)
+gen.generateNOnes(board,true, 3, 1)
