@@ -34,8 +34,7 @@ function check( b :: Board, i :: Int, j :: Int, m :: Int, n :: Int, o :: Int, p 
 end
 
 #funkcja spradzajaca sasiadĂłw dla komorki [i][j] dla bez granic dla 11 hw h1 i 1w (nie chciaĹ‚o mi sie juz kombinowac)
-#=function check2(bo :: Board, a :: Int, b :: Int, c :: Int, d :: Int, e :: Int, f :: Int, g :: Int, h :: Int, i :: Int, j :: Int, k :: Int, l :: Int, m :: Int, n :: Int, o :: Int, p :: Int, r :: Int, s :: Int)
-	tmp = 0
+function check2(bo :: Board, tmp :: Int, a :: Int, b :: Int, c :: Int, d :: Int, e :: Int, f :: Int, g :: Int, h :: Int, i :: Int, j :: Int, k :: Int, l :: Int, m :: Int, n :: Int, o :: Int, p :: Int, r :: Int, s :: Int)
 	if( bo.cells[a,b].isAlife == true )
 		tmp = tmp +1
 	end
@@ -60,9 +59,8 @@ end
 	if( bo.cells[o,p].isAlife == true )
 		tmp = tmp +1
 	end
-	rules( bo, i, j, tmp)
+	return tmp
 end
-=#
 
 #funkcja przejsc po tablicy z granicami
 function checkingWithBorders( b :: Board )
@@ -101,13 +99,12 @@ function checkingWithBorders( b :: Board )
 end
 
 #funkcja przejsc po tablicy bez granic
-#=
 function checkingInfinity(b :: Board)
 	h = b.hight
 	w = b.width
-	tmp = 0
-	for i = 1 :h-1
-		for j = 1 : w -1
+	for i = 1 :h -1
+		for j = 1 : w
+			tmp = 0
 			if ((i == 1) && (j != 1)&& (j != w) )
 				for( l = j - 1 : j + 1 )
 					if( b.cells[h,l].isAlife == true )
@@ -155,20 +152,28 @@ function checkingInfinity(b :: Board)
 					end
 				end
 			elseif((i == 1) && (j == 1))
-				check2(b, h, w, h, j, h, j+1, i, w, i, j, i, j+1, i+1, w, i+1, j, i+1, j+1)	
+				tmp = check2(b, tmp, h, w, h, j, h, j+1, i, w, i, j, i, j+1, i+1, w, i+1, j, i+1, j+1)	
 			elseif((i == 1) && (j == w))
-				check2(b, h, j-1, h, j, h, 1, i, j-1, i, j, i, 1, i+1, j-1, i+1, j, i+1, 1)
+				tmp = check2(b, tmp, h, j-1, h, j, h, 1, i, j-1, i, j, i, 1, i+1, j-1, i+1, j, i+1, 1)
 			elseif((i == h) && (j == 1))
-				check2(b, i-1, w, i-1, j, i-1, j+1, i, w, i, j, i, j+1, 1, w, 1, j, 1, j+1)
+				tmp = check2(b, tmp, i-1, w, i-1, j, i-1, j+1, i, w, i, j, i, j+1, 1, w, 1, j, 1, j+1)
 			elseif((i == h) && (j == w))
-				check2(b, i-1, j-1, i-1, j, i-1, 1, i, j-1, i, j, i, 1, 1, j-1, 1, j, 1, 1)
+				tmp = check2(b, tmp, i-1, j-1, i-1, j, i-1, 1, i, j-1, i, j, i, 1, 1, j-1, 1, j, 1, 1)
 			elseif((i != 1) && (i != h) &&( j != 1) && (j != w) )
-				check( b, i, j, -1, -1, 1 , 1)
+				for( k  = i -1 : i + 1)
+					for( l = j -1 : j + 1)
+						if (( k != i ) && (l != j ) && ( b.cells[k,l].isAlife == true) )
+							tmp = tmp +1
+						end
+					end
+				end
 			end
+			b = rules(b,i,j,tmp)
 		end
 	end
+	return b
 end
-=#
+
 
 type Generator
 	generateNextOne
@@ -182,8 +187,8 @@ type Generator
 				return nb
 
 			else
-			#	checkingInfinity( board )
-			#	bIO.saveToFile(board, "board_only_one_inf.txt")
+				ni = checkingInfinity( board )
+				return ni
 			end
 		end,
 
@@ -210,10 +215,10 @@ type Generator
 				end
 			else
 				for ( i = 1 : n)
-				#	checkingInfinity( board )
+					board = checkingInfinity( board )
 					if( i == z)
-				#		ff = findfirst(nOnes, empty)
-				#		nOnes[ff,1] = board
+						ff = findfirst(nOnes, empty)
+						nOnes[ff,1] = board
 						z = z + saving
 					end
 				end 
