@@ -1,6 +1,6 @@
 include("Board.jl")
 
-#funkcja realizujaca zasady gry w życie
+#funkcja realizujaca zasady gry w ĹĽycie
 function rules( b :: Board, i:: Int, j:: Int, n :: Int)
 	if ( b.cells[i,j].isAlife == true)
 		if (( n == 2) || ( n == 3))
@@ -15,10 +15,11 @@ function rules( b :: Board, i:: Int, j:: Int, n :: Int)
 			b.cells[i,j].isAlife = false
 		end
 	end
+	return b
 end
 
 
-#funkcja spradzająca sasiadów zadanej komorki[i,j], parametry mnop -(-1,0,1) z granicami
+#funkcja spradzajÄ…ca sasiadĂłw zadanej komorki[i,j], parametry mnop -(-1,0,1) z granicami
 function check( b :: Board, i :: Int, j :: Int, m :: Int, n :: Int, o :: Int, p :: Int )
 	tmp = 0
 	for( k  = i + m : i + o)
@@ -28,11 +29,12 @@ function check( b :: Board, i :: Int, j :: Int, m :: Int, n :: Int, o :: Int, p 
 			end
 		end
 	end
-	rules( b, i, j, tmp)
+	board = rules( b, i, j, tmp)
+	return board
 end
 
-#funkcja spradzajaca sasiadów dla komorki [i][j] dla bez granic dla 11 hw h1 i 1w (nie chciało mi sie juz kombinowac)
-function check2(bo :: Board, a :: Int, b :: Int, c :: Int, d :: Int, e :: Int, f :: Int, g :: Int, h :: Int, i :: Int, j :: Int, k :: Int, l :: Int, m :: Int, n :: Int, o :: Int, p :: Int, r :: Int, s :: Int)
+#funkcja spradzajaca sasiadĂłw dla komorki [i][j] dla bez granic dla 11 hw h1 i 1w (nie chciaĹ‚o mi sie juz kombinowac)
+#=function check2(bo :: Board, a :: Int, b :: Int, c :: Int, d :: Int, e :: Int, f :: Int, g :: Int, h :: Int, i :: Int, j :: Int, k :: Int, l :: Int, m :: Int, n :: Int, o :: Int, p :: Int, r :: Int, s :: Int)
 	tmp = 0
 	if( bo.cells[a,b].isAlife == true )
 		tmp = tmp +1
@@ -60,6 +62,7 @@ function check2(bo :: Board, a :: Int, b :: Int, c :: Int, d :: Int, e :: Int, f
 	end
 	rules( bo, i, j, tmp)
 end
+=#
 
 #funkcja przejsc po tablicy z granicami
 function checkingWithBorders( b :: Board )
@@ -69,34 +72,36 @@ function checkingWithBorders( b :: Board )
 		for j = 1 : w
 			if( i == 1)
 				if( j == 1)
-					check(b, i, j, 0, 0, 1, 1)
+					b = check(b, i, j, 0, 0, 1, 1)
 				elseif ( j == w)
-					check(b, i, j, 0, -1, 1, 0)
+					b = check(b, i, j, 0, -1, 1, 0)
 				else
-					check(b, i, j, 0, -1, 1, 1)
+					b = check(b, i, j, 0, -1, 1, 1)
 				end
 			elseif ( i == h)
 				if( j == 1)
-					check(b, i, j, -1, 0, 0, 1)
+					b = check(b, i, j, -1, 0, 0, 1)
 				elseif ( j == w)
-					check(b, i, j, -1, -1, 0, 0)
+					b = check(b, i, j, -1, -1, 0, 0)
 				else
-					check(b, i, j, -1, -1, 0, 1)
+					b = check(b, i, j, -1, -1, 0, 1)
 				end
 			else
 				if( j == 1)
-					check(b, i, j, -1, 0, 1, 1)
+					b = check(b, i, j, -1, 0, 1, 1)
 				elseif ( j == w)
-					check(b, i ,j, -1, -1, 1, 0)
+					b = check(b, i ,j, -1, -1, 1, 0)
 				else
-					check(b, i, j, -1, -1, 1, 1)
+					b = check(b, i, j, -1, -1, 1, 1)
 				end
 			end
 		end
 	end
+	return b
 end
 
 #funkcja przejsc po tablicy bez granic
+#=
 function checkingInfinity(b :: Board)
 	h = b.hight
 	w = b.width
@@ -163,46 +168,57 @@ function checkingInfinity(b :: Board)
 		end
 	end
 end
-
+=#
 
 type Generator
 	generateNextOne
 	generateNOnes
 	Generator() =
-		new(   #funkcja generujaca jeden następny board
+		new(   #funkcja generujaca jeden nastÄ™pny board
 		function generateNextOne( board :: Board, infinity :: Bool) 
 			bIO = BoardIO()
 			if( infinity == false)
-				checkingWithBorders( board )
-				bIO.saveToFile(board, "board_only_one_borders.txt")
+				nb = checkingWithBorders( board )
+				return nb
 
 			else
-				checkingInfinity( board )
-				bIO.saveToFile(board, "board_only_one_inf.txt")
+			#	checkingInfinity( board )
+			#	bIO.saveToFile(board, "board_only_one_inf.txt")
 			end
 		end,
 
-			#funkcja generujaca n następnych boardów zapis co liczbę saving
+			#funkcja generujaca n nastÄ™pnych boardĂłw zapis co liczbÄ™ saving
 		function generateNOnes( board :: Board, infinity :: Bool, n :: Int, saving :: Int) 
 			bIO = BoardIO()
+			empty = Board(1,1)
+			c = div((n+1),saving)
+			if ( (n+1)/saving == div((n+1),saving)) 
+				nOnes = Array{Board}(c,1)
+			else
+				nOnes = Array{Board}(c+1,1)
+			end
+			fill!(nOnes, empty)
 			z = 1
 			if( infinity == false)
 				for ( i = 1 : n)
-					checkingWithBorders( board )
+					board = checkingWithBorders( board )
 					if( i == z)
-						bIO.saveToFile(board, "board_borders_nr_$z.txt")	
+						ff = findfirst(nOnes, empty)
+						nOnes[ff,1] = board	
 						z = z + saving
 					end
 				end
 			else
 				for ( i = 1 : n)
-					checkingInfinity( board )
+				#	checkingInfinity( board )
 					if( i == z)
-						bIO.saveToFile(board, "board_inf_nr_$z.txt")	
+				#		ff = findfirst(nOnes, empty)
+				#		nOnes[ff,1] = board
 						z = z + saving
 					end
 				end 
 			end 
+			return nOnes
 		end
 		)
 end
