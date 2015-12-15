@@ -7,4 +7,4 @@ bIO = BoardIO()
 #Wczytanie planszy z pliku
 board = bIO.loadFromFile("daneTestowe.txt")
 gen = Generator()
-gen.generateNextOne(board,false)
+gen.generateNextOne(board,false) #jak true, to granice zamknięte (nieskończone)
