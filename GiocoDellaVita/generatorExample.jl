@@ -7,15 +7,18 @@ bIO = BoardIO()
 #Wczytanie planszy z pliku
 board = bIO.loadFromFile("daneTestowe.txt")
 gen = Generator()
+printBoard(board)
+print('\n')
 
 #generacja jednego na planszy z granicami
-gen.generateNextOne(board,false)
+next = gen.generateNextOne(board,false)
+printBoard(next)
 
 #generacja jednego na planszy bez granic
-gen.generateNextOne(board,true)
+#gen.generateNextOne(board,true)
 
 #generacja wielu 3 iteracje zapisane co 1 z granicami
-gen.generateNOnes(board,false, 3, 1)
+nn = gen.generateNOnes(board,false, 3, 1)
 
 #generacja wielu 3 iteracje zapisane co 1 z granicami
-gen.generateNOnes(board,true, 3, 1)
+#gen.generateNOnes(board,true, 3, 1)
