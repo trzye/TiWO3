@@ -2,17 +2,17 @@ include("Board.jl")
 
 #funkcja realizujaca zasady gry w życie
 function rules( b :: Board, i:: Int, j:: Int, n :: Int)
-	if ( b.cells[i , j] == Cell(true) )
-		if (( n == 2)||( n == 3))
-			b.cells[i , j] = Cell(true)
+	if ( b.cells[i,j].isAlife == true)
+		if (( n == 2) || ( n == 3))
+			b.cells[i,j].isAlife = true
 		else
-			b.cells[i , j] = Cell(false)
+			b.cells[i,j].isAlife = false
 		end
 	else
 		if ( n == 3)
-			b.cells[i,j] = Cell(true)
+			b.cells[i,j].isAlife = true
 		else
-			b.cells[i,j] = Cell(false)
+			b.cells[i,j].isAlife = false
 		end
 	end
 end
@@ -23,7 +23,7 @@ function check( b :: Board, i :: Int, j :: Int, m :: Int, n :: Int, o :: Int, p 
 	tmp = 0
 	for( k  = i + m : i + o)
 		for( l = j + n : j + p)
-			if (( k != i ) && (l != j ) && ( b.cells[k,l] == Cell(true)) )
+			if (( k != i ) && (l != j ) && ( b.cells[k,l].isAlife == true) )
 				tmp = tmp +1
 			end
 		end
@@ -34,28 +34,28 @@ end
 #funkcja spradzajaca sasiadów dla komorki [i][j] dla bez granic dla 11 hw h1 i 1w (nie chciało mi sie juz kombinowac)
 function check2(bo :: Board, a :: Int, b :: Int, c :: Int, d :: Int, e :: Int, f :: Int, g :: Int, h :: Int, i :: Int, j :: Int, k :: Int, l :: Int, m :: Int, n :: Int, o :: Int, p :: Int, r :: Int, s :: Int)
 	tmp = 0
-	if( bo.cells[a,b] == Cell(true))
+	if( bo.cells[a,b].isAlife == true )
 		tmp = tmp +1
 	end
-	if( bo.cells[c,d] == Cell(true))
+	if( bo.cells[c,d].isAlife == true )
 		tmp = tmp +1
 	end
-	if( bo.cells[e,f] == Cell(true))
+	if( bo.cells[e,f].isAlife == true )
 		tmp = tmp +1
 	end
-	if( bo.cells[g,h] == Cell(true))
+	if( bo.cells[g,h].isAlife == true )
 		tmp = tmp +1
 	end
-	if( bo.cells[r,s] == Cell(true))
+	if( bo.cells[r,s].isAlife == true )
 		tmp = tmp +1
 	end
-	if( bo.cells[k,l] == Cell(true))
+	if( bo.cells[k,l].isAlife == true )
 		tmp = tmp +1
 	end
-	if( bo.cells[m,n] == Cell(true))
+	if( bo.cells[m,n].isAlife == true )
 		tmp = tmp +1
 	end
-	if( bo.cells[o,p] == Cell(true))
+	if( bo.cells[o,p].isAlife == true )
 		tmp = tmp +1
 	end
 	rules( bo, i, j, tmp)
@@ -105,25 +105,25 @@ function checkingInfinity(b :: Board)
 		for j = 1 : w
 			if ((i == 1) && (j != 1)&& (j != w) )
 				for( l = j + n : j + p)
-					if( b.cells[h,l] == true)
+					if( b.cells[h,l].isAlife == true )
 						tmp = tmp +1
 					end
-					if ( (l != j ) && ( b.cells[i,l] == true) )
+					if ( (l != j ) && ( b.cells[i,l].isAlife == true ) )
 						tmp = tmp +1
 					end
-					if (b.cells[i+1,l] == true)
+					if (b.cells[i+1,l].isAlife == true )
 						tmp = tmp +1
 					end
 				end
 			elseif ((i == h) && (j != 1)&& (j != w) )
 				for( l = j + n : j + p)
-					if( b.cells[1,l] == true)
+					if( b.cells[1,l].isAlife == true )
 						tmp = tmp +1
 					end
-					if ( (l != j ) && ( b.cells[i,l] == true) )
+					if ( (l != j ) && ( b.cells[i,l].isAlife == true ))
 						tmp = tmp +1
 					end
-					if (b.cells[i-1,l] == true)
+					if (b.cells[i-1,l].isAlife == true)
 						tmp = tmp +1
 					end
 				end
