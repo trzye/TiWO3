@@ -82,9 +82,9 @@ printBoard = function printBoard(board::Board)
 	for h=1:board.hight
 		for w=1:board.width
 			if board.cells[h, w].isAlife
-				print("♡")
+				print("1")
 			else
-				print(" ")
+				print("0")
 			end
 		end
 		print("\n")
