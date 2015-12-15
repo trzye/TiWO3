@@ -2,14 +2,14 @@ include("Board.jl")
 
 #funkcja realizujaca zasady gry w życie
 function rules( b :: Board, i:: Int, j:: Int, n :: Int)
-	if ( b.cells[i , j] == Cell(true)
+	if ( b.cells[i , j] == Cell(true) )
 		if (( n == 2)||( n == 3))
 			b.cells[i , j] = Cell(true)
 		else
 			b.cells[i , j] = Cell(false)
 		end
 	else
-		if ( nn == 3)
+		if ( n == 3)
 			b.cells[i,j] = Cell(true)
 		else
 			b.cells[i,j] = Cell(false)
@@ -31,7 +31,7 @@ function check( b :: Board, i :: Int, j :: Int, m :: Int, n :: Int, o :: Int, p 
 	rules( b, i, j, tmp)
 end
 
-funkcja spradzajaca sasiadów dla komorki [i][j] dla bez granic dla 11 hw h1 i 1w (nie chciało mi sie juz kombinowac)
+#funkcja spradzajaca sasiadów dla komorki [i][j] dla bez granic dla 11 hw h1 i 1w (nie chciało mi sie juz kombinowac)
 function check2(bo :: Board, a :: Int, b :: Int, c :: Int, d :: Int, e :: Int, f :: Int, g :: Int, h :: Int, i :: Int, j :: Int, k :: Int, l :: Int, m :: Int, n :: Int, o :: Int, p :: Int, r :: Int, s :: Int)
 	tmp = 0
 	if( bo.cells[a,b] == Cell(true))
@@ -87,9 +87,9 @@ function checkingWithBorders( b :: Board )
 				if( j == 1)
 					check(b, i, j, -1, 0, 1, 1)
 				elseif ( j == w)
-					chceck(b, i ,j, -1, -1, 1, 0)
+					check(b, i ,j, -1, -1, 1, 0)
 				else
-					chceck(b, i, j, -1, -1, 1, 1)
+					check(b, i, j, -1, -1, 1, 1)
 				end
 			end
 		end
