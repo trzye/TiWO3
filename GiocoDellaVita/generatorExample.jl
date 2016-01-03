@@ -10,16 +10,16 @@ gen = Generator()
 printBoard(board)
 print('\n')
 
-#generacja jednego na planszy z granicami
+#Jedna generacja na planszy z granicami.
 next = gen.generateNextOne(board,false)
 printBoard(next)
 
-#generacja jednego na planszy bez granic
+#Jedna generacja na planszy bez granic.
 n = gen.generateNextOne(board,true)
 printBoard(n)
 
-#generacja wielu 3 iteracje zapisane co 1 z granicami
+#Generacja wielu (trzech) iteracji. Zapisanie co jedną.  Plansza z granicami.
 nn = gen.generateNOnes(board,false, 3, 1)
 
-#generacja wielu 3 iteracje zapisane co 1 z granicami
+#Generacja wielu (trzech) iteracji. Zapisanie co jedną. Plansza bez granic.
 gen.generateNOnes(board,true, 3, 1)
