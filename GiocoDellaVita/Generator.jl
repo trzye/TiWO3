@@ -161,24 +161,24 @@ function checkingInfinity(bo :: Board)
 				end
 			elseif( (j == 1) && (( i != 1) && (i != h)) )
 				for(k = i -1 : i + 1)
-					if( bo.cells[k,w] == Cell(true))
+					if( bo.cells[k,w].isAlife == true )
 						tmp = tmp + 1
 					end
-					for(l = j : j+1)
-						if( bo.cells[k,l].isAlife == true)
-							tmp = tmp +1
-						end
+					if( (k != i) && (bo.cells[k,j].isAlife == true) )
+						tmp = tmp +1
+					if( bo.cells[k,j+1].isAlife == true )
+						tmp = tmp +1
 					end
 				end
 			elseif( (j == w) && (( i != 1) && (i != h)))
 				for(k = i -1 : i + 1)
-					if( bo.cells[k,1] == Cell(true))
+					if( bo.cells[k,1].isAlife == true )
 						tmp = tmp + 1
 					end
-					for(l = j -1 : j)
-						if( bo.cells[k,l].isAlife == true)
-							tmp = tmp +1
-						end
+					if( (k != i) && (bo.cells[k,j].isAlife == true) )
+						tmp = tmp +1
+					if( bo.cells[k,j-1].isAlife == true )
+						tmp = tmp +1
 					end
 				end
 			elseif((i == 1) && (j == 1))
