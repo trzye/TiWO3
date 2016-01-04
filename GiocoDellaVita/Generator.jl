@@ -7,10 +7,22 @@ function copy(board :: Board)
 	board2 = Board(h,w)
 	cells1 = board.cells
 	cells2 = board2.cells
-
 	for i=1:h
 		for j=1:w
 			cells2[i , j]= cells1[i , j]
+		end
+	end
+	return board2
+end
+
+function workBoard(board :: Board)
+	w = board.width
+	h = board.hight
+	board2 = Board(h,w)
+	cells = board2.cells
+	for i=1:h
+		for j=1:w
+			cells[i , j]=Cell(false)
 		end
 	end
 	return board2
@@ -37,10 +49,10 @@ end
 
 #funkcja spradzajÄ…ca sasiadĂłw zadanej komorki[i,j], parametry mnop -(-1,0,1) z granicami
 function check( bo :: Board, b :: Board, i :: Int, j :: Int, m :: Int, n :: Int, o :: Int, p :: Int )
-	tmp = 1
+	tmp = 0
 	for( k  = i + m : i + n)
 		for( l = j + o : j + p)
-			if (( k != i ) && (l != j ) && ( bo.cells[k,l].isAlife == true) )
+			if ( (( k != i ) || (l != j )) && ( bo.cells[k,l].isAlife == true) )
 				tmp = tmp +1
 			end
 		end
@@ -82,7 +94,7 @@ end
 function checkingWithBorders( bo :: Board )
 	h = bo.hight
 	w = bo.width
-	b = copy(bo)
+	b = workBoard(bo)
 	for i =1 : h
 		for j = 1 : w
 			if( i == 1)
@@ -122,8 +134,8 @@ function checkingInfinity(bo :: Board)
 	b = copy(bo)
 	for i = 1 :h
 		for j = 1 : w
-			tmp = 1
-			if ((i == 1) && (j != 1)&& (j != w) )
+			tmp = 0
+			if ((i == 1) && (j != 1) && (j != w) )
 				for( l = j - 1 : j + 1 )
 					if( bo.cells[h,l].isAlife == true )
 						tmp = tmp +1
