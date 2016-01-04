@@ -63,28 +63,28 @@ end
 
 #funkcja spradzajaca sasiadĂłw dla komorki [i][j] dla bez granic dla 11 hw h1 i 1w (nie chciaĹ‚o mi sie juz kombinowac)
 function check2(bo :: Board, tmp :: Int, a :: Int, b :: Int, c :: Int, d :: Int, e :: Int, f :: Int, g :: Int, h :: Int, i :: Int, j :: Int, k :: Int, l :: Int, m :: Int, n :: Int, o :: Int, p :: Int, r :: Int, s :: Int)
-	if( bo.cells[a,b].isAlife == true )
+	if( bo.cells[a,b] == Cell(true) )
 		tmp = tmp +1
 	end
-	if( bo.cells[c,d].isAlife == true )
+	if( bo.cells[c,d] == Cell(true) )
 		tmp = tmp +1
 	end
-	if( bo.cells[e,f].isAlife == true )
+	if( bo.cells[e,f] == Cell(true) )
 		tmp = tmp +1
 	end
-	if( bo.cells[g,h].isAlife == true )
+	if( bo.cells[g,h] == Cell(true) )
 		tmp = tmp +1
 	end
-	if( bo.cells[r,s].isAlife == true )
+	if( bo.cells[r,s] == Cell(true) )
 		tmp = tmp +1
 	end
-	if( bo.cells[k,l].isAlife == true )
+	if( bo.cells[k,l] == Cell(true) )
 		tmp = tmp +1
 	end
-	if( bo.cells[m,n].isAlife == true )
+	if( bo.cells[m,n] == Cell(true) )
 		tmp = tmp +1
 	end
-	if( bo.cells[o,p].isAlife == true )
+	if( bo.cells[o,p] == Cell(true) )
 		tmp = tmp +1
 	end
 	return tmp
@@ -131,13 +131,13 @@ end
 function checkingInfinity(bo :: Board)
 	h = bo.hight
 	w = bo.width
-	b = copy(bo)
+	b = workBoard(bo)
 	for i = 1 :h
 		for j = 1 : w
 			tmp = 0
-			if ((i == 1) && (j != 1) && (j != w) )
+			if ((i == 1) && ((j != 1) && (j != w)) )
 				for( l = j - 1 : j + 1 )
-					if( bo.cells[h,l].isAlife == true )
+					if( bo.cells[h,l] == Cell(true) )
 						tmp = tmp +1
 					end
 					if ( (l != j ) && ( bo.cells[i,l].isAlife == true ) )
@@ -147,9 +147,9 @@ function checkingInfinity(bo :: Board)
 						tmp = tmp +1
 					end
 				end
-			elseif( (i == h)&&(j != 1)&&(j != w) )
+			elseif( (i == h) && ((j != 1) && (j != w)) )
 				for( l = j -1 : j + 1)
-					if( bo.cells[1,l].isAlife == true )
+					if( bo.cells[1,l] == Cell(true))
 						tmp = tmp +1
 					end
 					if ( (l != j ) && ( bo.cells[i,l].isAlife == true ))
@@ -159,9 +159,9 @@ function checkingInfinity(bo :: Board)
 						tmp = tmp +1
 					end
 				end
-			elseif( (j == 1) && ( i != 1) && (i != h) )
+			elseif( (j == 1) && (( i != 1) && (i != h)) )
 				for(k = i -1 : i + 1)
-					if( bo.cells[k,w].isAlife == true)
+					if( bo.cells[k,w] == Cell(true))
 						tmp = tmp + 1
 					end
 					for(l = j : j+1)
@@ -170,9 +170,9 @@ function checkingInfinity(bo :: Board)
 						end
 					end
 				end
-			elseif( (j == w) && ( i != 1) && (i != h))
+			elseif( (j == w) && (( i != 1) && (i != h)))
 				for(k = i -1 : i + 1)
-					if( bo.cells[k,1].isAlife == true)
+					if( bo.cells[k,1] == Cell(true))
 						tmp = tmp + 1
 					end
 					for(l = j -1 : j)
@@ -189,10 +189,10 @@ function checkingInfinity(bo :: Board)
 				tmp = check2(bo, tmp, i-1, w, i-1, j, i-1, j+1, i, w, i, j, i, j+1, 1, w, 1, j, 1, j+1)
 			elseif((i == h) && (j == w))
 				tmp = check2(bo, tmp, i-1, j-1, i-1, j, i-1, 1, i, j-1, i, j, i, 1, 1, j-1, 1, j, 1, 1)
-			elseif((i != 1) && (i != h) &&( j != 1) && (j != w) )
+			elseif(((i != 1) && (i != h)) && (( j != 1) && (j != w)) )
 				for( k  = i -1 : i + 1)
 					for( l = j -1 : j + 1)
-						if (( k != i ) && (l != j ) && ( bo.cells[k,l].isAlife == true) )
+						if ((( k != i ) || (l != j )) && ( bo.cells[k,l].isAlife == true) )
 							tmp = tmp +1
 						end
 					end
