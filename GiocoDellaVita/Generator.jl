@@ -166,6 +166,7 @@ function checkingInfinity(bo :: Board)
 					end
 					if( (k != i) && (bo.cells[k,j].isAlife == true) )
 						tmp = tmp +1
+					end
 					if( bo.cells[k,j+1].isAlife == true )
 						tmp = tmp +1
 					end
@@ -177,6 +178,7 @@ function checkingInfinity(bo :: Board)
 					end
 					if( (k != i) && (bo.cells[k,j].isAlife == true) )
 						tmp = tmp +1
+					end
 					if( bo.cells[k,j-1].isAlife == true )
 						tmp = tmp +1
 					end
