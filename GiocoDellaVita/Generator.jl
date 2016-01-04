@@ -63,28 +63,28 @@ end
 
 #funkcja spradzajaca sasiadĂłw dla komorki [i][j] dla bez granic dla 11 hw h1 i 1w (nie chciaĹ‚o mi sie juz kombinowac)
 function check2(bo :: Board, tmp :: Int, a :: Int, b :: Int, c :: Int, d :: Int, e :: Int, f :: Int, g :: Int, h :: Int, i :: Int, j :: Int, k :: Int, l :: Int, m :: Int, n :: Int, o :: Int, p :: Int, r :: Int, s :: Int)
-	if( bo.cells[a,b] == Cell(true) )
+	if( bo.cells[a,b].isAlife == true )
 		tmp = tmp +1
 	end
-	if( bo.cells[c,d] == Cell(true) )
+	if( bo.cells[c,d].isAlife == true )
 		tmp = tmp +1
 	end
-	if( bo.cells[e,f] == Cell(true) )
+	if( bo.cells[e,f].isAlife == true )
 		tmp = tmp +1
 	end
-	if( bo.cells[g,h] == Cell(true) )
+	if( bo.cells[g,h].isAlife == true )
 		tmp = tmp +1
 	end
-	if( bo.cells[r,s] == Cell(true) )
+	if( bo.cells[r,s].isAlife == true )
 		tmp = tmp +1
 	end
-	if( bo.cells[k,l] == Cell(true) )
+	if( bo.cells[k,l].isAlife == true )
 		tmp = tmp +1
 	end
-	if( bo.cells[m,n] == Cell(true) )
+	if( bo.cells[m,n].isAlife == true )
 		tmp = tmp +1
 	end
-	if( bo.cells[o,p] == Cell(true) )
+	if( bo.cells[o,p].isAlife == true )
 		tmp = tmp +1
 	end
 	return tmp
