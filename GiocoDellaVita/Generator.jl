@@ -137,7 +137,7 @@ function checkingInfinity(bo :: Board)
 			tmp = 0
 			if ((i == 1) && ((j != 1) && (j != w)) )
 				for( l = j - 1 : j + 1 )
-					if( bo.cells[h,l] == Cell(true) )
+					if( bo.cells[h,l].isAlife == true )
 						tmp = tmp +1
 					end
 					if ( (l != j ) && ( bo.cells[i,l].isAlife == true ) )
@@ -149,7 +149,7 @@ function checkingInfinity(bo :: Board)
 				end
 			elseif( (i == h) && ((j != 1) && (j != w)) )
 				for( l = j -1 : j + 1)
-					if( bo.cells[1,l] == Cell(true))
+					if( bo.cells[1,l].isAlife == true)
 						tmp = tmp +1
 					end
 					if ( (l != j ) && ( bo.cells[i,l].isAlife == true ))
